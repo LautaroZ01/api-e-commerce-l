@@ -1,9 +1,12 @@
 import jwt from "jwt-simple";
 import moment from "moment";
+import dotenv from "dotenv";
 
-const secret = "CLAVE_SECRETA_del_e_commerce_DE_ELECTRONICOS_23311";
+dotenv.config();
 
-const createToken = (user) =>{
+const secret = process.env.SECRET;
+
+const createToken = (user) => {
     const payload = {
         id: user.id,
         name: user.name,

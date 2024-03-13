@@ -1,10 +1,12 @@
 import express from "express";
 import { routerP } from "./src/Routers/RProduct.js"
 import { routerU } from "./src/Routers/RUser.js";
+import dotenv  from "dotenv";
+
+dotenv.config();
 
 import cors from "cors";
 const app = express();
-
 app.use(cors())
 
 // Middlewares

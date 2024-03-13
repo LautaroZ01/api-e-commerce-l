@@ -5,7 +5,7 @@
   "description": "API para un ecommerce",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LautaroZ01",
@@ -14,6 +14,7 @@
     "@supabase/supabase-js": "^2.39.7",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "jwt-simple": "^0.5.6",
     "moment": "^2.30.1",
