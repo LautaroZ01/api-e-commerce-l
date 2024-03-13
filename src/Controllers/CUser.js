@@ -126,7 +126,6 @@ const profile = async (req, res) => {
 }
 
 export {
-    getUsers,
     register,
     login,
     profile
