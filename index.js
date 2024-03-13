@@ -18,5 +18,5 @@ const productRoutes = routerP;
 app.use("/api/user", userRoutes);
 app.use("/api/producto", productRoutes);
 
-app.listen(3000);
+app.listen(process.env.PORT);
 console.log("Servidor corriendo en el puerto 3000");
