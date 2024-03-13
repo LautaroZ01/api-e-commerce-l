@@ -2,7 +2,7 @@ import { consulta } from "../Database/conexion.js";
 
 
 const getCategorias = async (req, res) => {
-    const query = "SELECT * FROM categorias";
+    const query = "SELECT name FROM categorias";
     try {
       const respuesta = await consulta(query);
       res.status(200).json(respuesta.rows);

@@ -3,22 +3,6 @@ import { validate } from "../Helpers/validate.js";
 import Bcrypt from "bcrypt";
 import { createToken } from "../Services/jwt.js";
 
-const getUsers = async (req, res) => {
-    const query = "SELECT * FROM users";
-
-    try {
-
-        const respuesta = await consulta(query);
-        res.status(200).json(respuesta.rows);
-
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: "Error al mostrar usuarios"
-        })
-    }
-}
 
 const register = async (req, res) => {
     let params = req.body;
