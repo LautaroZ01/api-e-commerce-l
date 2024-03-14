@@ -2,17 +2,17 @@ import pg from "pg";
 const { Pool } = pg;
 
 // Importante comentar al desplegar
-// const pool = new Pool({
-//   host: 'localhost',
-//   user: 'postgres',
-//   password: 'postgres',
-//   database: 'e_commerce_db'
-// })
+const pool = new Pool({
+  host: 'localhost',
+  user: 'postgres',
+  password: 'postgres',
+  database: 'e_commerce_db'
+})
 
 // Importante descomentar al desplegar
-const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL,
-})
+// const pool = new Pool({
+//   connectionString: process.env.POSTGRES_URL,
+// })
 
 const consulta = async (query) => {
   try {
