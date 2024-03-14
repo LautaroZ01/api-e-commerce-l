@@ -2,6 +2,7 @@ import { consulta, insertar } from "../Database/conexion.js";
 import { validate } from "../Helpers/validate.js";
 import Bcrypt from "bcrypt";
 import { createToken } from "../Services/jwt.js";
+import fs from "fs";
 
 
 const register = async (req, res) => {
@@ -44,7 +45,6 @@ const register = async (req, res) => {
         let array = [name, surname, email, password, address, birthdate]
         const respuesta = await insertar(query, array);
 
-        console.log(respuesta)
         res.status(200).json(respuesta)
 
     } catch (error) {
@@ -66,7 +66,7 @@ const login = async (req, res) => {
         });
     }
 
-    
+
     try {
         const query = `SELECT * FROM users WHERE email = '${params.email}'`;
         const respuesta = await consulta(query);
@@ -74,7 +74,7 @@ const login = async (req, res) => {
 
         const pwd = Bcrypt.compareSync(params.password, user.password)
 
-        if(!pwd){
+        if (!pwd) {
             return res.status(400).send({
                 status: "error",
                 message: "Contraseña incorrecta"
@@ -85,7 +85,7 @@ const login = async (req, res) => {
 
         res.status(200).send({
             status: "Success",
-            message:"Te has identificado correctamente",
+            message: "Te has identificado correctamente",
             usuario: {
                 name: user.name,
                 surname: user.surname,
@@ -116,7 +116,7 @@ const profile = async (req, res) => {
             message: "Datos del usuario",
             user: user
         })
-        
+
     } catch (error) {
         return res.status(400).send({
             status: "error",
@@ -125,8 +125,63 @@ const profile = async (req, res) => {
     }
 }
 
+const upload = async (req, res) => {
+    if (!req.file) {
+        return res.status(404).send({
+            status: 'error',
+            message: "No has subido ninguna imagen"
+        })
+    }
+
+    let image = req.file.originalname;
+
+    const imageSplit = image.split('\.');
+    const extencion = imageSplit[1]
+
+    if (extencion != "png" && extencion != "jpg" && extencion != "jpeg" && extencion != "svg" && extencion != "gif" && extencion != "WebP") {
+        const filePath = req.file.path;
+        const fileDeleted = fs.unlinkSync(filePath);
+
+        return res.status(400).send({
+            status: 'error',
+            message: `Formato no permitido`
+        })
+    }
+
+    try {
+        const query = `SELECT name FROM users WHERE name = '${req.user.name}'`;
+        const respuesta = await consulta(query);
+
+        if (respuesta.rows.length == 0) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'Error al actualizar la imagen'
+            })
+        }
+
+        const user = respuesta.rows[0]
+        const query2 = `UPDATE users SET photo = '${req.file.filename}' WHERE name = '${req.user.name}';`
+        const respuesta2 = await consulta(query2);
+
+        return res.status(200).send({
+            status: "Success",
+            user: user,
+            file: req.file
+        })
+
+    } catch (error) {
+        return res.status(404).send({
+            status: 'error',
+            message: 'Ocurrio un problema al cargar la imagen'
+        })
+    }
+
+
+}
+
 export {
     register,
     login,
-    profile
+    profile,
+    upload
 }

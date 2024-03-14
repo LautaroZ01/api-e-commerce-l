@@ -1,6 +1,7 @@
 import pg from "pg";
 const { Pool } = pg;
 
+// Importante comentar al desplegar
 // const pool = new Pool({
 //   host: 'localhost',
 //   user: 'postgres',
@@ -8,6 +9,7 @@ const { Pool } = pg;
 //   database: 'e_commerce_db'
 // })
 
+// Importante descomentar al desplegar
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
 })
