@@ -138,7 +138,7 @@ const upload = async (req, res) => {
     const imageSplit = image.split('\.');
     const extencion = imageSplit[1]
 
-    if (extencion != "png" && extencion != "jpg" && extencion != "jpeg" && extencion != "svg" && extencion != "gif" && extencion != "WebP") {
+    if (extencion != "png" && extencion != "jpg" && extencion != "jpeg" && extencion != "svg" && extencion != "gif" && extencion != "webp") {
         const filePath = req.file.path;
         const fileDeleted = fs.unlinkSync(filePath);
 

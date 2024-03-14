@@ -19,7 +19,6 @@ const consulta = async (query) => {
     const res = await pool.query(query);
     return res;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -34,7 +33,6 @@ const insertar = async (query, array) => {
       return "Array vacio";
     }
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
