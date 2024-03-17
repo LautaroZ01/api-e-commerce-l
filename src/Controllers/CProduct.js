@@ -1,14 +1,41 @@
 import { consulta } from "../Database/conexion.js";
 
 const getCategorias = async (req, res) => {
-  const query = "SELECT name FROM categorias";
+  const query = "SELECT name FROM categorias;";
   try {
     const respuesta = await consulta(query);
-    res.status(200).json(respuesta.rows);
+
+    res.status(200).send({
+      status: 'Success',
+      categorias: respuesta.rows
+    })
+
   } catch (error) {
-    res.status(500).json({ message: "Error fetching categories" });
+    res.status(400).send({
+      status: "error",
+      message: "Error al mostrar las categorias"
+    });
   }
 };
+
+const getMarcas = async (req, res) => {
+  const query = "SELECT name, logo FROM marca;";
+
+  try {
+    const respuesta = await consulta(query);
+
+    res.status(200).send({
+      status: 'Success',
+      marcas: respuesta.rows
+    })
+
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      message: "Error al mostrar las marcas"
+    });
+  }
+}
 
 const getProducts = async (req, res) => {
   const query = `select p.id, p.name, p.price, p.discount, p.photo, m.name as marca from productos p inner join marca m on id_marca = m.id;`;
@@ -64,6 +91,7 @@ const getOneProduct = async (req, res) => {
 
 export {
   getCategorias,
+  getMarcas,
   getProducts,
   getOneProduct
 }
