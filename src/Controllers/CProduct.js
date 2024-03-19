@@ -38,7 +38,9 @@ const getMarcas = async (req, res) => {
 }
 
 const getProducts = async (req, res) => {
-  const query = `select p.id, p.name, p.price, p.discount, p.photo, m.name as marca from productos p inner join marca m on id_marca = m.id;`;
+  const query = `select p.id, p.name, p.price, p.discount, p.photo, m.name as marca, c.name as categoria 
+  from productos p inner join marca m on id_marca = m.id
+  inner join categorias c on id_categoria = c.id;`;
   try {
     const respuesta = await consulta(query);
 
