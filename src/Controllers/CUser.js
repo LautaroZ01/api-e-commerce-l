@@ -43,7 +43,10 @@ const register = async (req, res) => {
         let array = [name, surname, email, password, address, birthdate]
         const respuesta = await insertar(query, array);
 
-        res.status(200).json(respuesta)
+        res.status(200).send({
+            status: "Success",
+            user: array
+        })
 
     } catch (error) {
         res.status(500).send({

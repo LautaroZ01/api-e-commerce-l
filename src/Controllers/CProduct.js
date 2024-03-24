@@ -45,7 +45,7 @@ const getProducts = async (req, res) => {
     const respuesta = await consulta(query);
 
     return res.status(200).send({
-      status: "Seccess",
+      status: "Success",
       productos: respuesta.rows
     })
 
@@ -77,7 +77,7 @@ const getOneProduct = async (req, res) => {
     }
 
     return res.status(200).send({
-      status: "Seccess",
+      status: "Success",
       producto: respuesta.rows[0]
     })
 
